@@ -92,10 +92,10 @@
       // This example requires the Places library. Include the libraries=places
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+      var map;
 
-      function initAutocomplete() {
-
-        var map = new google.maps.Map(document.getElementById('map'), {
+      function initAutocomplete($latlong) {
+        map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 7.079910, lng: 125.572397},
           zoom: 13,
           mapTypeId: 'roadmap'
@@ -110,11 +110,7 @@
         map.addListener('bounds_changed', function() {
           searchBox.setBounds(map.getBounds());
         });
-        var myCenter = new google.maps.LatLng(7.079910,125.572397);
-        var markerCenter = new google.maps.Marker({
-          position: myCenter,
-          map: map
-        });
+        
 
         var markers = [];
         // Listen for the event fired when the user selects a prediction and retrieve
@@ -164,6 +160,31 @@
           });
           map.fitBounds(bounds);
         });
+      }
+
+      function setMark($latlong){
+        if($latlong != null){
+          console.log($latlong);
+          for(x in $latlong){
+
+            var colorTag;
+            if($latlong[x].type == 'Concerns')
+              colorTag = "blue"
+            else
+              colorTag = "pink";
+
+            var myCenter = new google.maps.LatLng($latlong[x].lat,$latlong[x].long);
+            var markerCenter = new google.maps.Marker({
+              position: myCenter,
+              map: map,
+              icon: {
+                path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                strokeColor: colorTag,
+                scale: 6
+              },
+            });
+          }
+        }
       }
 
     </script>

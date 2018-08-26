@@ -59,7 +59,7 @@
 			        'Content-Type': 'application/json'
 			    }
 			},
-			url = 'http://3293d533.ngrok.io/minecrop_app/getRandomTweets';
+			url = 'http://a14883c0.ngrok.io/minecrop_app/getRandomTweets';
 			$http.get(url, config).then(successCallback, errorCallback);
  	    }
 		  getFeeds();
@@ -76,25 +76,31 @@
 
  	    	function successCallback(response){
 	 	      // $scope.twitterPost = response.data.data;
-	 	      console.log(response);
+			var LatLongGlobal = [];
+	 	    
+	 	      for(x in response.data.data){
+	 	      	LatLongGlobal.push({lat : response.data.data[x][1], long : response.data.data[x][2], type : response.data.data[x][3]});
+
+	 	      }	
+	 	     setMark(LatLongGlobal);
 	 	     }	
 
 	 	    function errorCallback(errorCallback){
 
 	 	    }
+
  	    	config = {
 			    headers: {
 			        'Content-Type': 'application/json'
 			    }
 			},
-			url = 'http://3293d533.ngrok.io/minecrop_app/get_report';
+			url = 'http://a14883c0.ngrok.io/minecrop_app/get_report';
 			$http.get(url, config).then(successCallback, errorCallback);
 	 	    }
 			  getFeeds();
 			
-			 $interval(function () {
-			  getFeeds();
-	   		 }, 30000);
+
+	   		
 	}
 	app.controller("mapController", mapController);
 </script>
