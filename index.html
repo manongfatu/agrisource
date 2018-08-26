@@ -1,0 +1,103 @@
+<?php header("Access-Control-Allow-Origin: *; ?>
+<html>
+
+<head> 
+<title>GrowBudgetPlus</title>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="css/style.css" rel="stylesheet">
+<script src="js/bootstrap.min.js"></script>
+<script src="jquery/jquery.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/route-angular.js"></script>
+</head>
+
+
+	<div id="nav-top" class="nav-top-shadow"> 
+	<center><img src="images/updated.png" class="brand" alt=""/></center>
+	</div>
+<body class="bg" ng-app="agriSource" ng-init="twitterPostHide = true">
+<center>
+<div class="optionBox col-md-12" >
+	
+    	<a href="#!" type="button" class="btn btn-default nav-buttons"><img class="optionButtons" src="images/news.png" /></a>
+
+    	<a href="#!heatmap" type="button" class="btn btn-default nav-buttons text-big" style="margin-left: 1%;"><img class="optionButtons" src="images/map.png" /></a>
+
+</div>
+<center>
+<div ng-view></div>
+<script type="text/javascript">
+	var app = angular.module("agriSource", ["ngRoute"]);
+	app.config(function($routeProvider){
+		$routeProvider.when("/",{
+			templateUrl : "news-feed.html",
+			controller : "newsfeedController"
+		}).when("/heatmap",{
+			templateUrl : "map.html",
+			controller : "mapController"
+		})
+	});
+
+	function feedsController($scope, $http, $interval){
+
+	 
+
+ 	    function getFeeds(){
+
+ 	    	function successCallback(response){
+	 	      $scope.twitterPost = response.data.data;
+
+	 	    }	
+
+	 	    function errorCallback(errorCallback){
+
+	 	    }
+ 	    	config = {
+			    headers: {
+			        'Content-Type': 'application/json'
+			    }
+			},
+			url = 'http://3293d533.ngrok.io/minecrop_app/getRandomTweets';
+			$http.get(url, config).then(successCallback, errorCallback);
+ 	    }
+		  getFeeds();
+		
+		 $interval(function () {
+		  getFeeds();
+   		 }, 30000);
+	
+	}	
+
+	app.controller("newsfeedController", feedsController);
+	function mapController($scope, $http){
+		   function getFeeds(){
+
+ 	    	function successCallback(response){
+	 	      // $scope.twitterPost = response.data.data;
+	 	      console.log(response);
+	 	     }	
+
+	 	    function errorCallback(errorCallback){
+
+	 	    }
+ 	    	config = {
+			    headers: {
+			        'Content-Type': 'application/json'
+			    }
+			},
+			url = 'http://3293d533.ngrok.io/minecrop_app/get_report';
+			$http.get(url, config).then(successCallback, errorCallback);
+	 	    }
+			  getFeeds();
+			
+			 $interval(function () {
+			  getFeeds();
+	   		 }, 30000);
+	}
+	app.controller("mapController", mapController);
+</script>
+
+</body>
+</html>

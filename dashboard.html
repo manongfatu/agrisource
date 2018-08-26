@@ -1,0 +1,56 @@
+<html>
+
+<head> 
+<title>GrowBudgetPlus</title>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="css/style.css" rel="stylesheet">
+<script src="js/bootstrap.min.js"></script>
+<script src="jquery/jquery.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/route-angular.js"></script>
+</head>
+
+
+	<div id="nav-top" class="nav-top-shadow"> 
+	<center><img src="images/updated.png" class="brand" alt=""/></center>
+	</div>
+<body class="bg">
+
+<div class="optionBox" ng-app="agriSource">
+
+    	<a href="!#" type="button" class="btn btn-default nav-buttons"><img class="optionButtons" src="images/news.png" /></a>
+
+    	<a href="!#heatmap" type="button" class="btn btn-default nav-buttons text-big" style="margin-left: 1%;"><img class="optionButtons" src="images/map.png" /></a>
+
+</div>
+
+<div class="contentContainer">
+	<div class="content">
+	
+		<div class="card-body">
+    		<h5 class="text-small">Content Owner</h5>
+    			<p class="text-normal">
+    			Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content.
+    			</p>
+     		</div>
+	</div>
+</div>
+
+
+</div>
+<script type="text/javascript">
+	var app = angular.module("agriSource", ["ngRoute"]);
+	app.config(function($routeProvider){
+		$routeProvider.when("/",{
+			templateUrl : "dashboard.html",
+			controller : "dashboardController"
+		}).when("/heatmap",{
+
+		})
+	});
+</script>
+
+</body>
+</html>
